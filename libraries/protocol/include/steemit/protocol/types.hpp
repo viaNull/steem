@@ -75,7 +75,7 @@ namespace steemit {
       {
          bool operator()( const std::string& a, const std::string& b )const
          {
-            return a < b;
+            return std_less( a, b );
          }
 
          bool operator()( const fc::fixed_string<>& a, const fc::fixed_string<>& b )const
@@ -89,13 +89,16 @@ namespace steemit {
 
          bool operator()( const fc::fixed_string<>& a, const std::string& b )const
          {
-            return std::string( a ) < b;
+            return std_less( std::string( a ), b );
          }
 
          bool operator()( const std::string& a, const fc::fixed_string<>& b )const
          {
-            return a < std::string( b );
+            return std_less( a, std::string( b ) );
          }
+
+         private:
+            std::less< string > std_less;
       };
 
       typedef fc::ripemd160                                        block_id_type;
